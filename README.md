@@ -32,18 +32,13 @@ It includes popular technical indicators, dynamic ATR-based stop loss/take profi
    venv\Scripts\activate     # Windows
 Install required packages:
 
-bash
-Copy
-Edit
+
 pip install -r requirements.txt
 Prepare your data:
 Place your cleaned 5-minute OHLC data CSV file under the data/ folder. The CSV should have columns including at least:
 date, open, high, low, close, volume
 
 Project Structure
-bash
-Copy
-Edit
 zerodha_algo/
 ├── data/
 │   └── niftybees_zerodha_prepared_2.csv  # your input data
@@ -59,9 +54,6 @@ zerodha_algo/
 Usage
 Run the backtest with:
 
-bash
-Copy
-Edit
 python -m scripts.backtest_ss_improved
 This will:
 
@@ -86,9 +78,6 @@ pandas_ta
 
 Install via pip:
 
-bash
-Copy
-Edit
 pip install pandas matplotlib pandas_ta
 Customization
 Modify scripts/backtest_ss_improved.py to change initial balance, trade quantity, or add new features.
@@ -103,9 +92,6 @@ This project is open-source and free to use. Please credit if used in your work.
 Contact
 For questions or suggestions, please open an issue or contact me.
 
-vbnet
-Copy
-Edit
 
 Let me know if you want me to help with a requirements.txt file or anything else!
 
