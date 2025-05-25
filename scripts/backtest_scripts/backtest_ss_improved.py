@@ -1,3 +1,8 @@
+"""
+Backtest script for improved short selling strategy with Bollinger Bands, ADX, ATR SL/TP.
+Loads historical data, runs signals, executes trades, calculates performance, and plots results.
+"""
+
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
