@@ -1,75 +1,56 @@
-import os
+import pandas as pd
 import matplotlib.pyplot as plt
-def max_drawdown(equity_curve):
-    """
-    Calculate the maximum drawdown from a list of equity values.
-    """
-    peak = equity_curve[0]
-    max_dd = 0
-    for value in equity_curve:
-        if value > peak:
-            peak = value
-        dd = (peak - value) / peak
-        max_dd = max(max_dd, dd)
-    return max_dd
 
-
-def update_daily_balance(df, index, balance, position, buy_price, quantity):
-    row = df.loc[index]
-    unrealized_pnl = 0
-
+def update_daily_balance(df, index, balance, position, entry_price, quantity):
+    row = df.iloc[index]
+    price = row['close']
     if position == 1:
-        unrealized_pnl = (row['close'] - buy_price) * quantity
+        net_worth = balance + quantity * price
     elif position == -1:
-        unrealized_pnl = (buy_price - row['close']) * quantity
-
-    net_worth = balance + unrealized_pnl
+        net_worth = balance + quantity * (2 * entry_price - price)  # short position valuation
+    else:
+        net_worth = balance
 
     return {
         'date': row['date'],
         'balance': balance,
         'position': position,
-        'buy_price': buy_price if position != 0 else None,
-        'close_price': row['close'],
-        'unrealized_pnl': unrealized_pnl,
+        'entry_price': entry_price,
+        'quantity': quantity,
         'net_worth': net_worth
     }
 
-
-def record_trade(trade_logs, date, action, price, quantity, pnl=None):
-    trade_logs.append({
+def record_trade(trade_logs, date, trade_type, price, quantity, pnl=0.0):
+    trade = {
         'date': date,
-        'action': action,
+        'type': trade_type,
         'price': price,
         'quantity': quantity,
-        'pnl': pnl
-    })
+        'pnl': pnl  # Always include pnl key
+    }
+    trade_logs.append(trade)
 
-def save_logs(trade_df,daily_df):
-    logs_dir = os.path.join(os.path.dirname(__file__), "..", "logs")
-    os.makedirs(logs_dir, exist_ok=True)
-    trade_df.to_csv(os.path.join(logs_dir, "trade_log_ss_improved.csv"), index=False)
-    daily_df.to_csv(os.path.join(logs_dir, "daily_balance_ss_improved.csv"), index=False)
-    print("Logs saved.")
+def save_logs(trade_df, daily_df, prefix='backtest'):
+    trade_df.to_csv(f"{prefix}_trades.csv", index=False)
+    daily_df.to_csv(f"{prefix}_daily.csv", index=False)
 
-def plot(trade_df,daily_df):
-    # Plot equity curve
-    plt.figure(figsize=(12, 6))
-    plt.plot(daily_df['date'], daily_df['net_worth'], label='Equity Curve', color='blue')
-    plt.title('Equity Curve')
-    plt.xlabel('Date')
-    plt.ylabel('Net Worth (₹)')
-    plt.grid(True)
+def max_drawdown(net_worths):
+    peak = net_worths[0]
+    max_dd = 0
+    for x in net_worths:
+        if x > peak:
+            peak = x
+        dd = (peak - x) / peak
+        if dd > max_dd:
+            max_dd = dd
+    return max_dd
+
+def plot(trade_df, daily_df):
+    plt.figure(figsize=(12,6))
+    plt.plot(pd.to_datetime(daily_df['date']), daily_df['net_worth'], label='Net Worth')
+    plt.title("Backtest Net Worth Over Time")
+    plt.xlabel("Date")
+    plt.ylabel("Net Worth")
     plt.legend()
-
-    for _, row in trade_df.iterrows():
-        try:
-            y_val = daily_df.loc[daily_df['date'] == row['date'], 'net_worth'].values[0]
-            color = 'green' if row['action'] in ['BUY', 'COVER'] else 'red'
-            marker = '^' if row['action'] in ['BUY', 'SHORT'] else 'v'
-            plt.scatter(row['date'], y_val, color=color, marker=marker, s=100)
-        except IndexError:
-            continue
-
-    plt.tight_layout()
+    plt.grid()
     plt.show()
