@@ -38,7 +38,7 @@ Prepare your data:
 Place your cleaned 5-minute OHLC data CSV file under the data/ folder. The CSV should have columns including at least:
 date, open, high, low, close, volume
 
-Project Structure
+## Project Structure
 zerodha_algo/
 ├── data/
 │   └── niftybees_zerodha_prepared_2.csv  # your input data
@@ -51,7 +51,7 @@ zerodha_algo/
 │   └── backtest_helpers.py                # trade logging, metrics, plotting, helpers
 ├── requirements.txt                       # required Python packages
 └── README.md                             # this file
-Usage
+## Usage
 Run the backtest with:
 
 python -m scripts.backtest_ss_improved
@@ -59,7 +59,7 @@ This will:
 
 Load the data CSV from data/ folder
 
-Calculate indicators
+## Calculate indicators
 
 Run the backtest loop with signal generation and trade management
 
@@ -67,7 +67,7 @@ Print performance summary to console
 
 Save trade and daily balance logs in the logs/ folder
 
-Plot the equity curve with trade markers
+## Plot the equity curve with trade markers
 
 Dependencies
 pandas
@@ -79,17 +79,17 @@ pandas_ta
 Install via pip:
 
 pip install pandas matplotlib pandas_ta
-Customization
+## Customization
 Modify scripts/backtest_ss_improved.py to change initial balance, trade quantity, or add new features.
 
 Adjust signal rules inside utils/signals.py.
 
 Add more indicators or tweak existing ones in utils/indicators.py.
 
-License
+## License
 This project is open-source and free to use. Please credit if used in your work.
 
-Contact
+## Contact
 For questions or suggestions, please open an issue or contact me.
 
 
