@@ -1,7 +1,3 @@
-Run this to activate venv
-.\venv\Scripts\Activate.ps1
-
-pip install -r requirements.txt
 
 # Zerodha Algo Trading Backtest
 
@@ -20,6 +16,17 @@ It includes popular technical indicators, dynamic ATR-based stop loss/take profi
 - Modular code structure with helper functions separated in `utils/`
 
 ---
+
+## ## Installation
+
+1. Clone the repository:
+   git clone https://github.com/Ganesh13477/Trading.git
+   cd Trading
+2. Create and activate a virtual environment:
+   python -m venv venv
+   source venv/bin/activate # On Windows: venv\Scripts\activate
+3. Install dependencies:
+   pip install -r requirements.txt
 
 ## Setup
 
