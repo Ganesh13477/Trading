@@ -17,7 +17,7 @@ It includes popular technical indicators, dynamic ATR-based stop loss/take profi
 
 ---
 
-## ## Installation
+## Installation
 
 1. Clone the repository:
    git clone https://github.com/Ganesh13477/Trading.git
