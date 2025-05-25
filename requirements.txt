@@ -1,0 +1,7 @@
+kiteconnect
+pandas
+yfinance
+pandas_ta
+datetime
+numpy
+matplotlib
