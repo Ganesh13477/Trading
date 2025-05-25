@@ -39,7 +39,7 @@ Place your cleaned 5-minute OHLC data CSV file under the data/ folder. The CSV s
 date, open, high, low, close, volume
 
 ## Project Structure
-<pre lang="markdown"> ``` zerodha_algo/ ├── data/ │ └── niftybees_zerodha_prepared_2.csv # Your input data (5-min candles) ├── logs/ # Generated trade and daily logs ├── scripts/ │ └── backtest_ss_improved.py # Main backtest script with long/short logic ├── utils/ │ ├── indicators.py # Functions to calculate MACD, RSI, EMA, BB, ADX, ATR │ ├── signals.py # Entry/exit logic (BUY, SELL, SHORT, COVER) │ └── backtest_helpers.py # Logging, max drawdown, plotting, etc. ├── requirements.txt # Python dependencies └── README.md # This file ``` </pre>
+<pre lang="text"> ```text zerodha_algo/ ├── data/ │ └── niftybees_zerodha_prepared_2.csv # your input data ├── logs/ # generated trade and daily logs saved here ├── scripts/ │ └── backtest_ss_improved.py # main backtest script ├── utils/ │ ├── indicators.py # functions to add indicators to data │ ├── signals.py # signal generation logic │ └── backtest_helpers.py # trade logging, metrics, plotting, helpers ├── requirements.txt # required Python packages └── README.md # this file ``` </pre>
 ## Usage
 Run the backtest with:
 
